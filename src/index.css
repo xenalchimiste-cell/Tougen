@@ -1,0 +1,169 @@
+:root {
+  --color-bg: #0a0a0a;
+  --color-primary: #ff0033; /* Rouge sang Tougen Anki (valeur par défaut) */
+  --color-secondary: #ffffff;
+  --color-text: #e0e0e0;
+  --font-main: 'Noto Sans JP', sans-serif;
+  --font-serif: 'Noto Serif JP', serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-main);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --- Sélection de texte dynamique --- */
+::selection {
+  background: var(--color-primary);
+  color: white;
+  text-shadow: 0 0 10px white;
+}
+
+canvas {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 0;
+  pointer-events: none;
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  min-height: 100vh;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-serif);
+  font-weight: 900;
+  margin: 0;
+}
+
+.overlay-content {
+  position: relative;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+/* --- Scrollbar personnalisée --- */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #000;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: 4px;
+}
+
+/* --- Effet Grain Cinématographique --- */
+.film-grain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999; /* Au-dessus de tout */
+  opacity: 0.05; /* Subtil */
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* --- Animation Ken Burns (Zoom lent) --- */
+@keyframes kenBurns {
+  0% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) scale(1.1) rotate(0deg); }
+}
+
+@keyframes kenBurnsRotated {
+  0% { transform: translate(-50%, -50%) scale(1) rotate(-90deg); }
+  100% { transform: translate(-50%, -50%) scale(1.1) rotate(-90deg); }
+}
+
+/* --- Effet Glitch pour le titre --- */
+.glitch {
+  position: relative;
+  color: white;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent; /* Transparent pour laisser voir le fond */
+}
+
+.glitch::before {
+  left: 2px;
+  text-shadow: -2px 0 #ff00c1;
+  clip: rect(44px, 450px, 56px, 0);
+  animation: glitch-anim 5s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+  left: -2px;
+  text-shadow: -2px 0 #00fff9;
+  clip: rect(44px, 450px, 56px, 0);
+  animation: glitch-anim2 5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+  0% { clip: rect(42px, 9999px, 44px, 0); transform: skew(0.3deg); }
+  5% { clip: rect(12px, 9999px, 59px, 0); transform: skew(0.3deg); }
+  10% { clip: rect(48px, 9999px, 29px, 0); transform: skew(0.3deg); }
+  15% { clip: rect(42px, 9999px, 73px, 0); transform: skew(0.3deg); }
+  20% { clip: rect(63px, 9999px, 27px, 0); transform: skew(0.3deg); }
+  25% { clip: rect(34px, 9999px, 55px, 0); transform: skew(0.3deg); }
+  30% { clip: rect(86px, 9999px, 73px, 0); transform: skew(0.3deg); }
+  35% { clip: rect(20px, 9999px, 20px, 0); transform: skew(0.3deg); }
+  40% { clip: rect(26px, 9999px, 60px, 0); transform: skew(0.3deg); }
+  45% { clip: rect(25px, 9999px, 66px, 0); transform: skew(0.3deg); }
+  50% { clip: rect(57px, 9999px, 98px, 0); transform: skew(0.3deg); }
+  55% { clip: rect(5px, 9999px, 46px, 0); transform: skew(0.3deg); }
+  60% { clip: rect(82px, 9999px, 31px, 0); transform: skew(0.3deg); }
+  65% { clip: rect(54px, 9999px, 27px, 0); transform: skew(0.3deg); }
+  70% { clip: rect(28px, 9999px, 99px, 0); transform: skew(0.3deg); }
+  75% { clip: rect(45px, 9999px, 69px, 0); transform: skew(0.3deg); }
+  80% { clip: rect(23px, 9999px, 85px, 0); transform: skew(0.3deg); }
+  85% { clip: rect(54px, 9999px, 84px, 0); transform: skew(0.3deg); }
+  90% { clip: rect(45px, 9999px, 47px, 0); transform: skew(0.3deg); }
+  95% { clip: rect(37px, 9999px, 20px, 0); transform: skew(0.3deg); }
+  100% { clip: rect(4px, 9999px, 91px, 0); transform: skew(0.3deg); }
+}
+
+@keyframes glitch-anim2 {
+  0% { clip: rect(65px, 9999px, 100px, 0); transform: skew(0.3deg); }
+  5% { clip: rect(52px, 9999px, 74px, 0); transform: skew(0.3deg); }
+  10% { clip: rect(79px, 9999px, 85px, 0); transform: skew(0.3deg); }
+  15% { clip: rect(75px, 9999px, 5px, 0); transform: skew(0.3deg); }
+  20% { clip: rect(67px, 9999px, 61px, 0); transform: skew(0.3deg); }
+  25% { clip: rect(14px, 9999px, 79px, 0); transform: skew(0.3deg); }
+  30% { clip: rect(1px, 9999px, 66px, 0); transform: skew(0.3deg); }
+  35% { clip: rect(86px, 9999px, 30px, 0); transform: skew(0.3deg); }
+  40% { clip: rect(23px, 9999px, 98px, 0); transform: skew(0.3deg); }
+  45% { clip: rect(85px, 9999px, 72px, 0); transform: skew(0.3deg); }
+  50% { clip: rect(71px, 9999px, 75px, 0); transform: skew(0.3deg); }
+  55% { clip: rect(2px, 9999px, 48px, 0); transform: skew(0.3deg); }
+  60% { clip: rect(30px, 9999px, 16px, 0); transform: skew(0.3deg); }
+  65% { clip: rect(59px, 9999px, 50px, 0); transform: skew(0.3deg); }
+  70% { clip: rect(41px, 9999px, 62px, 0); transform: skew(0.3deg); }
+  75% { clip: rect(2px, 9999px, 82px, 0); transform: skew(0.3deg); }
+  80% { clip: rect(47px, 9999px, 73px, 0); transform: skew(0.3deg); }
+  85% { clip: rect(3px, 9999px, 27px, 0); transform: skew(0.3deg); }
+  90% { clip: rect(26px, 9999px, 55px, 0); transform: skew(0.3deg); }
+  95% { clip: rect(42px, 9999px, 97px, 0); transform: skew(0.3deg); }
+  100% { clip: rect(38px, 9999px, 49px, 0); transform: skew(0.3deg); }
+}
